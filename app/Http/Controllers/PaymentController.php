@@ -13,10 +13,11 @@ class PaymentController extends Controller
     public function process(Request $request)
     {
         try {
-            Log::info('payment_process', ['request' => $request->all()]);
 
-            $paymentService = app()->make(PaymentGatewayInterface::class,['gateway' => $request->payment_method]);
+            Log::info('payment_process', ['request' => $request->all()]);
             
+            $paymentService = app()->make(PaymentGatewayInterface::class,['gateway' => $request->payment_method]);
+
             Log::info('payment_service', ['service' => get_class($paymentService)]);
             $response = $paymentService->pay([
                 'amount' => $request->amount
@@ -54,7 +55,6 @@ class PaymentController extends Controller
         } else {
             return redirect()->route('home')->with('error', 'Payment failed');
         }
-
     }
 
     public function cancel($gateway, Request $request)

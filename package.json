@@ -12,5 +12,8 @@
         "laravel-vite-plugin": "^1.0",
         "sass": "^1.56.1",
         "vite": "^6.4.2"
+    },
+    "dependencies": {
+        "izitoast": "^1.4.0"
     }
 }

@@ -2,16 +2,6 @@
 
 @section('content')
     <div class="container py-4">
-        @if(session('success'))
-            <div class="alert alert-success message-cls">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="alert alert-danger message-cls">
-                {{ session('error') }}
-            </div>
-        @endif
         {{-- Dashboard Card --}}
         <div class="row justify-content-center mb-4">
             <div class="col-md-10">
@@ -105,12 +95,30 @@
         </div>
     </div>
 @endsection
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<script>
-$(document).ready(function () {
-    setTimeout(function () {
-        $('.message-cls').fadeOut();
-    }, 2000);
-});
-</script>
+@push('scripts')
+    <script>
+        const success = @json(session('success'));
+        const error = @json(session('error'));
+        console.log("xxxxxxxxxx",success);
+        console.log("yyyyyyyyyyyyyyyyyyyyyyy",error);
+
+        if (success) {
+            iziToast.success({
+                title: 'Success',
+                message: @json(session('success')),
+                position: 'topRight',
+                timeout: 3000
+            });
+        }
+
+        if (error) {
+            iziToast.error({
+                title: 'error',
+                message: @json(session('error')),
+                position: 'topRight',
+                timeout: 3000
+            });
+        }
+    </script>
+@endpush
